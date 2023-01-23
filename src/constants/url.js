@@ -1,3 +1,1 @@
-import dotenv from 'dotenv'
-dotenv.config()
-BASEURL= `${process.env.BASE_URL}`
+export const BASE_URL= `http://localhost:5000`

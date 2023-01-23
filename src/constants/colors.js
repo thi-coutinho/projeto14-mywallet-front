@@ -1,0 +1,8 @@
+export const EXTRALIGHTPURPLE = 'hsl(282, 69%, 80%)'
+export const LIGHTPURPLE = 'hsl(282, 69%, 50%)'
+export const PURPLE = '#8C11BE'
+export const BLACK = '#000000'
+export const WHITE = '#FFFFFF'
+export const GREY = '#868686;'
+export const GREEN = '#03AC00'
+export const RED = '#C70000'

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { PURPLE } from "../constants/colors";
 import { useToken } from "../context/TokenProvider";
 
 export default function BaseScreen({children}){
@@ -13,10 +14,8 @@ export default function BaseScreen({children}){
 
 const Screen = styled.div`
     min-height:100vh;
-    padding:70px 0 100px;
-    background-color: #8C11BE;
+    background-color: ${PURPLE};
     display:flex;
     justify-content:center;
-    align-items:center;
     
 `
