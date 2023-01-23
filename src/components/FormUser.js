@@ -13,7 +13,7 @@ export default function FormUser({ route, linkText, submitFunction, children }) 
             }}>
                 {children}
             </FormLogin>
-            <Link to={route}>{linkText}</Link>
+            {linkText && <Link to={route}>{linkText}</Link> }
         </FlexRow>
     )
 

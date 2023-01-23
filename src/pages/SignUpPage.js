@@ -62,7 +62,7 @@ export default function SignUpPage() {
                     disabled={loading}
                     required
                 />
-                <Button buttonText="Entrar" />
+                <Button buttonText="Cadastro" />
             </FormUser>
 
         </Screen>

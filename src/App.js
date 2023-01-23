@@ -5,6 +5,7 @@ import TokenProvider from "./context/TokenProvider";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import HomePage from "./pages/HomePage";
+import AddEntryPage from "./pages/AddEntryPage";
 
 function App() {
     return (
@@ -16,8 +17,8 @@ function App() {
                             <Route path="/" element={<LoginPage />} />
                             <Route path="/cadastro" element={<SignUpPage />} />
                             <Route path="/home" element={<HomePage />} />
-                            {/* <Route path="/nova-entrada" element={<AddIncomePage />} /> */}
-                            {/* <Route path="/nova-saida" element={<AddExpensePage />} /> */}
+                            <Route path="/nova-entrada" element={<AddEntryPage type="income" />} />
+                            <Route path="/nova-saida" element={<AddEntryPage type="expense" />} />
                         </Routes>
                     </BaseScreen>
                 </BrowserRouter>

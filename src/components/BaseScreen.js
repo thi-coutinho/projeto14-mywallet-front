@@ -14,8 +14,9 @@ export default function BaseScreen({children}){
 
 const Screen = styled.div`
     min-height:100vh;
+    padding-top:25px;
     background-color: ${PURPLE};
-    display:flex;
-    justify-content:center;
+    /* display:flex; */
+    /* justify-content:center; */
     
 `

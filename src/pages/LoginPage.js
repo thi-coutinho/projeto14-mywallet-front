@@ -21,8 +21,7 @@ export default function LoginPage() {
         toggleLoading()
         axios.post(BASE_URL + "/", bodyLoginInfo)
             .then(res => {
-                setToken({ token: res.data.token })
-                console.log(res.data)
+                setToken({ token: res.data.token, name:res.data.userName})
                 toggleLoading()
                 navigate("/home")
             })
