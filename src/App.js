@@ -4,7 +4,7 @@ import LoadingProvider from "./context/LoadingProvider";
 import TokenProvider from "./context/TokenProvider";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
-import HomePage from "./pages/HomePage";
+import HomePage from "./pages/HomePage/HomePage";
 import AddEntryPage from "./pages/AddEntryPage";
 
 function App() {

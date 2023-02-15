@@ -25,7 +25,7 @@ const ButtonStyled = styled.button`
     font-weight:700;
     font-size: 20px;
     line-height: 26px;
-    width: inherit;
+    width: 100%;
     height: 45px;
     color: ${WHITE};
     background: ${props => props.disabled ? `${EXTRALIGHTPURPLE}` : `${LIGHTPURPLE}`};

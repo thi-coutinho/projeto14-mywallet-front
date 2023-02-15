@@ -13,10 +13,10 @@ export default function BaseScreen({children}){
 }
 
 const Screen = styled.div`
+    max-width:420px;
     min-height:100vh;
     padding-top:25px;
+    inset:0;
+    margin: auto;
     background-color: ${PURPLE};
-    /* display:flex; */
-    /* justify-content:center; */
-    
 `

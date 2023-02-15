@@ -5,6 +5,44 @@ export const GlobalStyle = createGlobalStyle`
    v2.0 | 20110126
    License: none (public domain)
 */
+@keyframes slide-in-right {
+    0% {
+        transform: translateX(1000px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    }
+
+@keyframes jello-horizontal {
+  0% {
+    transform: scale3d(1, 1, 1);
+  }
+  30% {
+    transform: scale3d(1.05, 0.95, 1);
+  }
+  40% {
+    transform: scale3d(0.95, 1.05, 1);
+  }
+  50% {
+    transform: scale3d(1.05, 0.95, 1);
+  }
+  65% {
+    transform: scale3d(0.95, 1.05, 1);
+  }
+  75% {
+    transform: scale3d(1.05, 0.95, 1);
+  }
+  100% {
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+
+
+
 * {
     box-sizing:border-box;
 }
@@ -21,6 +59,7 @@ article, aside, canvas, details, embed,
 figure, figcaption, footer, header, hgroup, 
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
+	overflow-x:clip;
 	margin: 0;
 	padding: 0;
 	border: 0;

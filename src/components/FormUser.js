@@ -33,7 +33,7 @@ const FlexRow = styled.div`
 const FormLogin = styled.form`
     display:flex;
     font-size:20px;
-    width:calc(100vw - 2 * 36px);
+    max-width:100%;
     flex-direction:column;
     justify-content:center;
     align-items:center;
@@ -41,10 +41,9 @@ const FormLogin = styled.form`
     input {
         border-radius: 5px;
         font-size:inherit;
-        width:inherit;
         height:45px;
         padding-left:11px;
-        margin:3px 36px;
+        margin:3px 0;
         &::placeholder{
             color: ${BLACK};
         }
