@@ -37,7 +37,7 @@ export default function AddEntryPage({type}) {
     }
 
     return (
-        <Screen>
+        <>
             <Title>{type === "income" ? "Nova Entrada" : "Nova Saída" }</Title>
             <FormUser route="/home" submitFunction={submitFunction}>
                 <input
@@ -59,7 +59,7 @@ export default function AddEntryPage({type}) {
                 <Button buttonText={type==="income"? "Salvar Entrada": "Salvar Saída"} />
             </FormUser>
         
-        </Screen>
+        </>
     )
 }
 
@@ -70,7 +70,4 @@ const Title = styled.div`
     font-size: 26px;
     line-height: 31px;
     color: ${WHITE};
-`
-const Screen = styled.div`
-    margin-top: 25px; 
 `

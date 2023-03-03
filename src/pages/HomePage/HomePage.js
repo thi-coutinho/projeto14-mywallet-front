@@ -12,6 +12,7 @@ export default function HomePage() {
     const setToken = useSetToken()
     const navigate = useNavigate()
     const [entriesList, setEntriesList] = useState(undefined)
+    const [deleteEntry, setDeleteEntry] = useState(false)
     let balance = undefined;
 
     if (entriesList?.length > 0) {
@@ -24,6 +25,13 @@ export default function HomePage() {
         })
     }
 
+    function compareFunction(a,b){
+        const dateA = a.date.split("/").reverse().join("-")
+        const dateB = b.date.split("/").reverse().join("-")
+        if (dateA>dateB) return 1
+        else return -1
+    }
+
     useEffect(() => {
 
         const config = {
@@ -33,10 +41,12 @@ export default function HomePage() {
         }
         axios.get(BASE_URL + "/home", config)
             .then(res => {
-                setEntriesList(res.data)
+                console.log(res.data)
+                setEntriesList(res.data.sort(compareFunction))
             })
             .catch(err => console.log(err.response.data))
-    }, [token])
+    }, [token, deleteEntry])
+
     if (!entriesList) {
         return (
             <LoadingScreen>
@@ -49,6 +59,19 @@ export default function HomePage() {
         setToken({})
         navigate("/")
     }
+
+    function delEntry(e, id) {
+        e.target.dataset.show = false
+        const config = {
+            headers: {
+                "Authorization": `Bearer ${token.token}`
+            }
+        }
+        axios.delete(BASE_URL + `/del/${id}`, config)
+            .then(res => setTimeout(() => setDeleteEntry(!deleteEntry), 500))
+            .catch(err => console.log(err.response.data))
+    }
+
     return (
         <>
             <HelloText>
@@ -62,12 +85,27 @@ export default function HomePage() {
                     {entriesList.map((e, i) => (
 
                         <Entry key={e._id} entryType={e.entryType} delay={i}>
-                            <p><span>{e.date.slice(0, 5)}</span>  {e.description}</p>
+                            <p><span>{e.date.slice(0, 10)}</span>  {e.description}</p>
                             <p>
                                 {Intl.NumberFormat("pt-BR", {
                                     minimumIntegerDigits: 2,
                                     minimumFractionDigits: 2,
                                 }).format(Number(e.value))}
+
+                                <ion-icon onClick={(evento) => delEntry(evento, e._id)} data-show={true} name="close-circle-outline"></ion-icon>
+                                <ion-icon
+                                    name="create-outline"
+                                    onClick={() => navigate(`atualizar/${e._id}`,
+                                        {
+                                            state: {
+                                                date: e.date,
+                                                description: e.description,
+                                                value: e.value,
+                                                entryType: e.entryType
+                                            }
+                                        })}
+                                ></ion-icon>
+
                             </p>
                         </Entry>
                     )

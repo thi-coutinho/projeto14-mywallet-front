@@ -32,6 +32,11 @@ const ButtonStyled = styled.button`
     border-radius: 5px;
     border: ${LIGHTPURPLE};
     padding:0;
+    transition: filter 300ms;
+    :hover{
+        filter: brightness(1.1);
+        cursor: pointer;
+    }
 
     div {
         height:100%;

@@ -5,6 +5,16 @@ export const GlobalStyle = createGlobalStyle`
    v2.0 | 20110126
    License: none (public domain)
 */
+@keyframes slide-out-left {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-1000px);
+    opacity: 0;
+  }
+}
 @keyframes slide-in-right {
     0% {
         transform: translateX(1000px);

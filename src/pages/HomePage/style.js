@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { BLACK, GREEN, LIGHTGREY, LIGHTPURPLE, RED, WHITE } from "../../constants/colors"
+import { BLACK, GREEN, GREY, LIGHTGREY, LIGHTPURPLE, RED, WHITE } from "../../constants/colors"
 
 export const LoadingScreen = styled.div`
     min-height:80vh;
@@ -32,15 +32,17 @@ export const HelloText = styled.div`
     
 `
 export const EntriesConteiner = styled.div`
+    display:flex;
+    flex-direction:column;
     position:relative;
     margin: 25px;
-    height: 446px;
+    flex:1;
     background-color:${WHITE};
-    padding: 20px 20px 40px;
+    padding: 10px 20px;
     line-height:28px;
     border-radius: 5px;
     ul {
-        height:390px;
+        flex:1;
         overflow-y:auto;
     }
     p {
@@ -51,7 +53,7 @@ export const Entry = styled.li`
     
 	animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
     animation-delay: ${props => props.delay / 30 + 's'};
-
+    transition: all 0.5s ease-out;
     display: flex;
     justify-content:space-between;
     p:nth-child(2) {
@@ -60,6 +62,18 @@ export const Entry = styled.li`
     span {
         color: ${LIGHTGREY}
     }
+    ion-icon {
+        
+        margin:0 4px;
+        color:${GREY};
+        :hover {
+            cursor: pointer;
+        }
+        
+    }
+    :has(ion-icon[data-show='false'])  {
+            animation: slide-out-left 0.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+        }
 `
 export const AddEntryButton = styled.button`
     font-family: 'Raleway';
@@ -76,17 +90,18 @@ export const AddEntryButton = styled.button`
     border-radius: 5px;
     border:none;
     background-color: ${LIGHTPURPLE};
-    opacity:0.8;
     display:flex;
     flex-direction:column;
     justify-content:center;
     gap:15px;
     align-items:center;
+    transition: filter 300ms;
     ion-icon{
         font-size:32px;
     }
     :hover, :focus{
-        opacity:1;
+        filter:brightness(1.1);
+        cursor: pointer;
         ion-icon, p {
             transition:color 0.2s ease-in;
             color:${props => props.fill};
