@@ -4,10 +4,9 @@ import { useNavigate } from "react-router-dom"
 import Button from "../components/Button"
 import FormUser from "../components/FormUser"
 import { BASE_URL } from "../constants/url"
-import styled from "styled-components"
-import { WHITE } from "../constants/colors"
 import { useLoading, useToggleLoading } from "../context/LoadingProvider"
 import { useToken } from "../context/TokenProvider"
+import  Title  from "../components/Title"
 
 export default function AddEntryPage({ type }) {
     const [entryInfo, setEntryInfo] = useState({ value: "", description: "", date: (new Date()).toISOString().slice(0, 10) })
@@ -48,9 +47,7 @@ export default function AddEntryPage({ type }) {
 
     return (
         <>
-            <Title>
-                <ion-icon onClick={() => navigate(-1)} name="arrow-back-circle-outline"></ion-icon>
-                {type === "income" ? "Nova Entrada" : "Nova Saída"}</Title>
+            <Title text={type === "income" ? "Nova Entrada" : "Nova Saída"}/>
             <FormUser route="/home" submitFunction={submitFunction}>
                 <input
                     type="number"
@@ -83,23 +80,3 @@ export default function AddEntryPage({ type }) {
         </>
     )
 }
-
-const Title = styled.div`
-    display: flex;
-    align-items:center;
-    gap:1rem;
-    margin: 0 36px 12px;
-    font-family:'Raleway', Courier, monospace ;
-    font-weight: 700;
-    font-size: 26px;
-    line-height: 31px;
-    color: ${WHITE};
-    ion-icon {
-    
-    :hover, :focus {
-            cursor: pointer;
-            transition:all 0.2s ease-in;
-            --ionicon-stroke-width: 64px;
-        }
-    }
-`

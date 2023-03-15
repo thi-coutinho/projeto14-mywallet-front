@@ -1,22 +1,12 @@
 import styled from "styled-components"
-import { LIGHTPURPLE, WHITE } from "../../constants/colors"
-
-
-export const Title = styled.div`
-    margin: 0 36px 12px;
-    font-family:'Raleway', Courier, monospace ;
-    font-weight: 700;
-    font-size: 26px;
-    line-height: 31px;
-    color: ${WHITE};
-`
+import { LIGHTPURPLE } from "../../constants/colors"
 
 export const RadioInput = styled.input.attrs({ type: "radio" })`
     
     display: none;
     &:checked {
     + div {
-        background-color: ${props => props.id === 'income'? '#16ad50' : '#e25656' } ;
+        background-color: ${props => props.id === 'income' ? '#16ad50' : '#e25656'} ;
         span {
         color: white;
         transform: translateY(20px);
@@ -60,10 +50,16 @@ export const RadioContainers = styled.div`
         font-size: 1.5em;
         user-select: none;
         color: white;
+        &#income::before{
+                content:'💰';
+            }
+        &#expense::before{
+                content:'💸';
+            }
         &::before {
-            content:'$';
-            font-size: 1.2em;
+            font-size: 0.8em;
             display: block;
+            margin-bottom:5px;
             transform: translateY(-5px);
             opacity: 0;
             transition: all 300ms ease-in-out;

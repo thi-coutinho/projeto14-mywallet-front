@@ -3,10 +3,11 @@ import { useState } from "react"
 import { useLocation, useNavigate, useParams } from "react-router-dom"
 import Button from "../../components/Button"
 import FormUser from "../../components/FormUser"
+import  Title  from "../../components/Title"
 import { BASE_URL } from "../../constants/url"
 import { useLoading, useToggleLoading } from "../../context/LoadingProvider"
 import { useToken } from "../../context/TokenProvider"
-import { RadioContainers, RadioInput, Title } from "./style"
+import { RadioContainers, RadioInput } from "./style"
 
 export default function UpdatePage() {
     const { state: { date, description, value, entryType } } = useLocation()
@@ -43,7 +44,7 @@ export default function UpdatePage() {
 
     return (
         <>
-            <Title>Atualizar entrada/saída</Title>
+            <Title text={'Atualizar entrada/saída'}/>
             <FormUser route="/home" submitFunction={submitFunction}>
                 <input
                     type="number"
@@ -80,8 +81,8 @@ export default function UpdatePage() {
                             disabled={loading}
                             required
                         />
-                        <div id="income">
-                            <span>Entrada</span>
+                        <div>
+                            <span id="income">Entrada</span>
                         </div>
                     </label>
                     <label>
@@ -94,8 +95,8 @@ export default function UpdatePage() {
                             disabled={loading}
                             required
                         />
-                        <div id="expense">
-                            <span>Saída</span>
+                        <div>
+                            <span id="expense">Saída</span>
                         </div>
                     </label>
                 </RadioContainers>
