@@ -5,6 +5,7 @@
   "dependencies": {
     "axios": "^1.2.3",
     "dayjs": "^1.11.7",
+    "framer-motion": "^10.3.2",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.1",
     "react": "^18.2.0",

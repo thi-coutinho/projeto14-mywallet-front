@@ -9,7 +9,7 @@ import { useToken } from "../context/TokenProvider"
 import  Title  from "../components/Title"
 
 export default function AddEntryPage({ type }) {
-    const [entryInfo, setEntryInfo] = useState({ value: "", description: "", date: (new Date()).toISOString().slice(0, 10) })
+    const [entryInfo, setEntryInfo] = useState({ value: "", description: "", date: (new Date()).toISOString().slice(0, 10) ,category:""})
     const entryUrl = type === "income" ? "/nova-entrada" : "/nova-saida"
     const navigate = useNavigate()
     const loading = useLoading()
@@ -65,6 +65,13 @@ export default function AddEntryPage({ type }) {
                     onChange={(e) => setEntryInfo({ ...entryInfo, description: e.target.value })}
                     disabled={loading}
                     required
+                />
+                <input
+                    type="text"
+                    placeholder="Categoria"
+                    value={entryInfo.category}
+                    onChange={(e) => { setEntryInfo({ ...entryInfo, category: e.target.value }) }}
+                    disabled={loading}
                 />
                 <input
                     type="date"
