@@ -19,13 +19,10 @@ export const HelloText = styled.div`
     font-size: 26px;
     line-height: 31px;
     color: ${WHITE};
-    ion-icon {
-        translate:-10px -1px;
-    
+    ion-icon {   
     :hover, :focus {
+            cursor: pointer;
             transition:all 0.2s ease-in;
-            font-size:28px;
-            translate:-9px 0px;
             --ionicon-stroke-width: 64px;
         }
     }

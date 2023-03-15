@@ -1,10 +1,10 @@
 import axios from "axios"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import Button from "../components/Button"
 import FormUser from "../components/FormUser"
 import { BASE_URL } from "../constants/url"
-import { useSetToken } from "../context/TokenProvider"
+import { useSetToken, useToken } from "../context/TokenProvider"
 import styled from "styled-components"
 import { WHITE } from "../constants/colors"
 import { useLoading, useToggleLoading } from "../context/LoadingProvider"
@@ -13,15 +13,23 @@ export default function LoginPage() {
     const linkText = "Primeira vez? Cadastre-se!"
     const [bodyLoginInfo, setBodyLoginInfo] = useState({ email: "", password: "" })
     const setToken = useSetToken()
+    const token = useToken()
     const navigate = useNavigate()
     const loading = useLoading()
     const toggleLoading = useToggleLoading()
+
+    useEffect(()=>{
+        if (token.token) navigate("/home")
+    },[])
 
     function submitFunction() {
         toggleLoading()
         axios.post(BASE_URL + "/", bodyLoginInfo)
             .then(res => {
-                setToken({ token: res.data.token, name:res.data.userName})
+                const token = { token: res.data.token, name:res.data.userName}
+                setToken(token)
+                localStorage.setItem("token",token.token)
+                localStorage.setItem("name",token.name)
                 toggleLoading()
                 navigate("/home")
             })

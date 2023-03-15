@@ -12,8 +12,9 @@ export function useSetToken(){
 }
 
 export default function TokenProvider({ children }) {
-
-    const [token, setToken] = useState(undefined)
+    const localToken = localStorage.getItem("token")
+    const name = localStorage.getItem("name")
+    const [token, setToken] = useState({token: localToken || undefined, name: name || undefined} )
 
 
 

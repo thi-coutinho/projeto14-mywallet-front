@@ -1,10 +1,9 @@
-import axios from "axios"
 import { useEffect, useState } from "react"
 import { ThreeDots } from "react-loader-spinner"
 import { useNavigate } from "react-router-dom"
 import { LIGHTGREEN, LIGHTRED, WHITE } from "../../constants/colors"
-import { BASE_URL } from "../../constants/url"
 import { useSetToken, useToken } from "../../context/TokenProvider"
+import apiEntries from "../../services/apiEntries"
 import { AddEntryButton, Balance, ButtonsConteiner, EntriesConteiner, Entry, HelloText, LoadingScreen } from "./style"
 
 export default function HomePage() {
@@ -14,6 +13,11 @@ export default function HomePage() {
     const [entriesList, setEntriesList] = useState(undefined)
     const [deleteEntry, setDeleteEntry] = useState(false)
     let balance = undefined;
+
+    useEffect(() => {
+        apiEntries.getEntries(token.token)
+        .then(res => setEntriesList(res))
+    }, [token, deleteEntry])
 
     if (entriesList?.length > 0) {
         balance = 0
@@ -25,28 +29,6 @@ export default function HomePage() {
         })
     }
 
-    function compareFunction(a,b){
-        const dateA = a.date.split("/").reverse().join("-")
-        const dateB = b.date.split("/").reverse().join("-")
-        if (dateA>dateB) return 1
-        else return -1
-    }
-
-    useEffect(() => {
-
-        const config = {
-            headers: {
-                "Authorization": `Bearer ${token.token}`
-            }
-        }
-        axios.get(BASE_URL + "/home", config)
-            .then(res => {
-                console.log(res.data)
-                setEntriesList(res.data.sort(compareFunction))
-            })
-            .catch(err => console.log(err.response.data))
-    }, [token, deleteEntry])
-
     if (!entriesList) {
         return (
             <LoadingScreen>
@@ -56,20 +38,15 @@ export default function HomePage() {
     }
 
     function exit() {
+        Object.keys(token).forEach(el => localStorage.removeItem(el))
         setToken({})
         navigate("/")
     }
 
-    function delEntry(e, id) {
+    async function delEntry(e, id) {
         e.target.dataset.show = false
-        const config = {
-            headers: {
-                "Authorization": `Bearer ${token.token}`
-            }
-        }
-        axios.delete(BASE_URL + `/del/${id}`, config)
-            .then(res => setTimeout(() => setDeleteEntry(!deleteEntry), 500))
-            .catch(err => console.log(err.response.data))
+        await apiEntries.delEntry(id,token.token)
+        setTimeout(() => setDeleteEntry(!deleteEntry), 500)
     }
 
     return (

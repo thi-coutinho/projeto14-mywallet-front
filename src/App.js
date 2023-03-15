@@ -6,7 +6,7 @@ import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import HomePage from "./pages/HomePage/HomePage";
 import AddEntryPage from "./pages/AddEntryPage";
-import UpdatePage from "./pages/UpdatePage";
+import UpdatePage from "./pages/UpdatePage/UpdatePage";
 
 function App() {
     return (
