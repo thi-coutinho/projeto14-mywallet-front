@@ -47,14 +47,14 @@ export const RadioContainers = styled.div`
         right: 0;
         
         transition: all 300ms ease;
-        font-size: 1.5em;
+        font-size: 1.2em;
         user-select: none;
         color: white;
         &#income::before{
-                content:'💰';
+                content:'$';
             }
         &#expense::before{
-                content:'💸';
+                content:'$';
             }
         &::before {
             font-size: 0.8em;

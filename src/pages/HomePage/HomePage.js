@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { ThreeDots } from "react-loader-spinner"
-import { useNavigate } from "react-router-dom"
+import {  useNavigate } from "react-router-dom"
+import PageTransition from "../../components/PageTransition"
 import { LIGHTGREEN, LIGHTRED, WHITE } from "../../constants/colors"
 import { useSetToken, useToken } from "../../context/TokenProvider"
 import apiEntries from "../../services/apiEntries"
@@ -50,7 +51,7 @@ export default function HomePage() {
     }
 
     return (
-        <>
+        <PageTransition>
             <HelloText>
                 <span> Olá, {`${token.name}`}</span>
                 <ion-icon onClick={exit} name="exit-outline"></ion-icon>
@@ -105,6 +106,6 @@ export default function HomePage() {
                     <p>Nova Saída</p>
                 </AddEntryButton>
             </ButtonsConteiner>
-        </>
+        </PageTransition>
     )
 }

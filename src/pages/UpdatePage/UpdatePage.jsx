@@ -3,6 +3,7 @@ import { useState } from "react"
 import { useLocation, useNavigate, useParams } from "react-router-dom"
 import Button from "../../components/Button"
 import FormUser from "../../components/FormUser"
+import PageTransition from "../../components/PageTransition"
 import  Title  from "../../components/Title"
 import { BASE_URL } from "../../constants/url"
 import { useLoading, useToggleLoading } from "../../context/LoadingProvider"
@@ -43,7 +44,7 @@ export default function UpdatePage() {
     }
 
     return (
-        <>
+        <PageTransition>
             <Title text={'Atualizar entrada/saída'}/>
             <FormUser route="/home" submitFunction={submitFunction}>
                 <input
@@ -103,6 +104,6 @@ export default function UpdatePage() {
                 <Button buttonText={"Atualizar"} />
             </FormUser>
 
-        </>
+        </PageTransition>
     )
 }

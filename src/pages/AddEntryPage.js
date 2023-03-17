@@ -7,6 +7,7 @@ import { BASE_URL } from "../constants/url"
 import { useLoading, useToggleLoading } from "../context/LoadingProvider"
 import { useToken } from "../context/TokenProvider"
 import  Title  from "../components/Title"
+import PageTransition from "../components/PageTransition"
 
 export default function AddEntryPage({ type }) {
     const [entryInfo, setEntryInfo] = useState({ value: "", description: "", date: (new Date()).toISOString().slice(0, 10) ,category:""})
@@ -46,7 +47,7 @@ export default function AddEntryPage({ type }) {
     }
 
     return (
-        <>
+        <PageTransition>
             <Title text={type === "income" ? "Nova Entrada" : "Nova Saída"}/>
             <FormUser route="/home" submitFunction={submitFunction}>
                 <input
@@ -84,6 +85,6 @@ export default function AddEntryPage({ type }) {
                 <Button buttonText={type === "income" ? "Salvar Entrada" : "Salvar Saída"} />
             </FormUser>
 
-        </>
+        </PageTransition>
     )
 }
