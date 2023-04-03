@@ -10,29 +10,12 @@ export const LoadingScreen = styled.div`
 
 `
 
-export const HelloText = styled.div`
-    display:flex;
-    justify-content:space-between;
-    margin:0 25px;
-    font-family: 'Raleway', Courier, monospace;
-    font-weight: 700;
-    font-size: 26px;
-    line-height: 31px;
-    color: ${WHITE};
-    ion-icon {   
-    :hover, :focus {
-            cursor: pointer;
-            transition:all 0.2s ease-in;
-            --ionicon-stroke-width: 64px;
-        }
-    }
-    
-`
+
 export const EntriesConteiner = styled.div`
     display:flex;
     flex-direction:column;
     position:relative;
-    margin: 25px;
+    margin: 10px 25px;
     flex:1;
     background-color:${WHITE};
     padding: 10px 20px;
@@ -53,11 +36,13 @@ export const Entry = styled.li`
     transition: all 0.5s ease-out;
     display: flex;
     justify-content:space-between;
+
     p:nth-child(2) {
         color: ${props => props.entryType === "income" ? `${GREEN}` : `${RED}`}
     }
     span {
-        color: ${LIGHTGREY}
+        color: ${LIGHTGREY};
+        margin-right: 12px
     }
     ion-icon {
         
@@ -71,6 +56,10 @@ export const Entry = styled.li`
     :has(ion-icon[data-show='false'])  {
             animation: slide-out-left 0.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
         }
+    :has(ion-icon[data-show='change'])  {
+        animation: slide-out-left 0.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+        animation-delay: ${props => props.delay / 30 + 's'};
+    }
 `
 export const AddEntryButton = styled.button`
     font-family: 'Raleway';

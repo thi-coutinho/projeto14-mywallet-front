@@ -8,6 +8,7 @@ import { useSetToken, useToken } from "../context/TokenProvider"
 import styled from "styled-components"
 import { WHITE } from "../constants/colors"
 import { useLoading, useToggleLoading } from "../context/LoadingProvider"
+import PageTransition from "../components/PageTransition"
 
 export default function LoginPage() {
     const linkText = "Primeira vez? Cadastre-se!"
@@ -41,7 +42,7 @@ export default function LoginPage() {
     }
 
     return (
-        <Screen>
+        <PageTransition>
             <Title>MyWallet</Title>
             <FormUser route="/cadastro" submitFunction={submitFunction} linkText={linkText}>
                 <input
@@ -63,18 +64,16 @@ export default function LoginPage() {
                 <Button buttonText="Entrar" />
             </FormUser>
         
-        </Screen>
+        </PageTransition>
     )
 }
 
 const Title = styled.div`
     font-family:'Saira Stencil One', Courier, monospace ;
     display:flex;
+    margin-top: 128px; 
     justify-content:center;
     font-size: 32px;
     line-height: 50px;
     color: ${WHITE};
-`
-const Screen = styled.div`
-    margin-top: 159px; 
 `

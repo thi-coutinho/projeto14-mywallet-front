@@ -29,7 +29,7 @@ const ButtonStyled = styled.button`
     height: 45px;
     color: ${WHITE};
     background: ${props => props.disabled ? `${EXTRALIGHTPURPLE}` : `${LIGHTPURPLE}`};
-    border-radius: 5px;
+    border-radius: 12px;
     border: ${LIGHTPURPLE};
     padding:0;
     transition: filter 300ms;

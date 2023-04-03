@@ -1,34 +1,56 @@
 import { useEffect, useState } from "react"
 import { ThreeDots } from "react-loader-spinner"
-import {  useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
+import NavbarFilter from "../../components/NavbarFilter.js"
 import PageTransition from "../../components/PageTransition"
+import Title from "../../components/Title"
 import { LIGHTGREEN, LIGHTRED, WHITE } from "../../constants/colors"
-import { useSetToken, useToken } from "../../context/TokenProvider"
+import { useToken } from "../../context/TokenProvider"
 import apiEntries from "../../services/apiEntries"
-import { AddEntryButton, Balance, ButtonsConteiner, EntriesConteiner, Entry, HelloText, LoadingScreen } from "./style"
+import { AddEntryButton, Balance, ButtonsConteiner, EntriesConteiner, Entry, LoadingScreen } from "./style"
 
 export default function HomePage() {
     const token = useToken()
-    const setToken = useSetToken()
     const navigate = useNavigate()
     const [entriesList, setEntriesList] = useState(undefined)
+    const [filteredProducts, setFilteredProducts] = useState(undefined)
     const [deleteEntry, setDeleteEntry] = useState(false)
+
     let balance = undefined;
+    let categories = new Set()
 
     useEffect(() => {
         apiEntries.getEntries(token.token)
-        .then(res => setEntriesList(res))
+            .then(res => {
+                // console.log(res[0].date.slice(3,5))
+                setEntriesList(res)
+            })
     }, [token, deleteEntry])
 
     if (entriesList?.length > 0) {
         balance = 0
         entriesList.filter((d) => d.entryType === "income").forEach(e => {
             balance += Number(e.value)
+            if (e.category) categories.add(e.category)
         })
         entriesList.filter((d) => d.entryType === "expense").forEach(e => {
             balance -= Number(e.value)
+            if (e.category) categories.add(e.category)
         })
+        categories = [...categories]
+        entriesList.reduce((acc, { category, value }) => {
+            const key = category
+            const sum = acc[key] ?? 0
+            return { ...acc, [key]: sum + value }
+        }, {})
     }
+
+    async function delEntry(e, id) {
+        e.target.dataset.show = false
+        await apiEntries.delEntry(id, token.token)
+        setTimeout(() => setDeleteEntry(!deleteEntry), 500)
+    }
+
 
     if (!entriesList) {
         return (
@@ -38,32 +60,20 @@ export default function HomePage() {
         )
     }
 
-    function exit() {
-        Object.keys(token).forEach(el => localStorage.removeItem(el))
-        setToken({})
-        navigate("/")
-    }
 
-    async function delEntry(e, id) {
-        e.target.dataset.show = false
-        await apiEntries.delEntry(id,token.token)
-        setTimeout(() => setDeleteEntry(!deleteEntry), 500)
-    }
 
     return (
         <PageTransition>
-            <HelloText>
-                <span> Olá, {`${token.name}`}</span>
-                <ion-icon onClick={exit} name="exit-outline"></ion-icon>
-            </HelloText>
+            <Title />
+            <NavbarFilter entries={entriesList} setFilter={setFilteredProducts} destination={'/graph'} ionIcon={'pie-chart'} />
             <EntriesConteiner>
-                {entriesList.length === 0 && <p>Não há registros de
+                {filteredProducts?.length === 0 && <p>Não há registros de
                     entrada ou saída</p>}
                 <ul>
-                    {entriesList.map((e, i) => (
+                    {filteredProducts?.map((e, i) => (
 
                         <Entry key={e._id} entryType={e.entryType} delay={i}>
-                            <p><span>{e.date.slice(0, 10)}</span>  {e.description}</p>
+                            <p><span>{e.date.slice(0, 2)}</span>  {e.description}</p>
                             <p>
                                 {Intl.NumberFormat("pt-BR", {
                                     minimumIntegerDigits: 2,
@@ -78,8 +88,10 @@ export default function HomePage() {
                                             state: {
                                                 date: e.date,
                                                 description: e.description,
+                                                category: e.category,
                                                 value: e.value,
-                                                entryType: e.entryType
+                                                entryType: e.entryType,
+                                                categories: categories
                                             }
                                         })}
                                 ></ion-icon>
@@ -97,11 +109,13 @@ export default function HomePage() {
                     </Balance>}
             </EntriesConteiner>
             <ButtonsConteiner>
-                <AddEntryButton fill={LIGHTGREEN} onClick={() => setTimeout(() => navigate("/nova-entrada"), 900)}>
+                <AddEntryButton fill={LIGHTGREEN} onClick={() => setTimeout(() => navigate("/nova-entrada",
+                    { state: { categories: categories } }), 900)}>
                     <ion-icon name="add-circle-outline"></ion-icon>
                     <p>Nova Entrada</p>
                 </AddEntryButton>
-                <AddEntryButton fill={LIGHTRED} onClick={() => setTimeout(() => navigate("/nova-saida"), 900)}>
+                <AddEntryButton fill={LIGHTRED} onClick={() => setTimeout(() => navigate("/nova-saida",
+                    { state: { categories: categories } }), 900)}>
                     <ion-icon name="remove-circle-outline"></ion-icon>
                     <p>Nova Saída</p>
                 </AddEntryButton>

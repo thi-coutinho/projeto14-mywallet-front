@@ -1,6 +1,6 @@
 import axios from "axios"
 import { useEffect, useRef, useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import Button from "../components/Button"
 import FormUser from "../components/FormUser"
 import { BASE_URL } from "../constants/url"
@@ -11,12 +11,14 @@ import PageTransition from "../components/PageTransition"
 
 export default function AddEntryPage({ type }) {
     const [entryInfo, setEntryInfo] = useState({ value: "", description: "", date: (new Date()).toISOString().slice(0, 10) ,category:""})
+    const { state: { categories } } = useLocation()
     const entryUrl = type === "income" ? "/nova-entrada" : "/nova-saida"
     const navigate = useNavigate()
     const loading = useLoading()
     const toggleLoading = useToggleLoading()
     const token = useToken()
     const input = useRef("")
+
 
     useEffect(() => {
         input.current.focus()
@@ -71,9 +73,13 @@ export default function AddEntryPage({ type }) {
                     type="text"
                     placeholder="Categoria"
                     value={entryInfo.category}
+                    list="categories"
                     onChange={(e) => { setEntryInfo({ ...entryInfo, category: e.target.value }) }}
                     disabled={loading}
                 />
+                 <datalist id="categories">
+                    {categories.map((e,i)=> <option key={i} value={e}></option>)}
+                </datalist>
                 <input
                     type="date"
                     value={entryInfo.date}

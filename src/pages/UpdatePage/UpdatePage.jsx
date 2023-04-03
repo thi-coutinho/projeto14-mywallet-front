@@ -11,9 +11,9 @@ import { useToken } from "../../context/TokenProvider"
 import { RadioContainers, RadioInput } from "./style"
 
 export default function UpdatePage() {
-    const { state: { date, description, value, entryType } } = useLocation()
+    const { state: { date, description, category ,value, categories, entryType } } = useLocation()
     const dateFormated = date.split("/").reverse().join("-")
-    const [entryInfo, setEntryInfo] = useState({ value, description, date, dateFormated, entryType })
+    const [entryInfo, setEntryInfo] = useState({ value, description, date, category , dateFormated, entryType })
     const navigate = useNavigate()
     const loading = useLoading()
     const toggleLoading = useToggleLoading()
@@ -31,8 +31,8 @@ export default function UpdatePage() {
             }
         }
 
-        const { value, description, date, entryType } = entryInfo
-        axios.put(BASE_URL + `/update/${entryId}`, { value, description, date, entryType }, config)
+        const { value, description, date, category, entryType } = entryInfo
+        axios.put(BASE_URL + `/update/${entryId}`, { value, description, date, category ,entryType }, config)
             .then(res => {
                 toggleLoading()
                 navigate("/home")
@@ -63,6 +63,18 @@ export default function UpdatePage() {
                     disabled={loading}
                     required
                 />
+                 <input
+                    type="string"
+                    placeholder="Categoria"
+                    value={entryInfo.category}
+                    onChange={(e) => setEntryInfo({ ...entryInfo, category: e.target.value })}
+                    list="categories"
+                    disabled={loading}
+                    required
+                />
+                <datalist id="categories">
+                    {categories.map((e,i)=> <option key={i} value={e}></option>)}
+                </datalist>
                 <input
                     type="date"
                     placeholder={entryInfo.dateFormated}

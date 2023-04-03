@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import { Link } from "react-router-dom"
-import { BLACK, WHITE } from "../constants/colors"
+import { BLACK, LIGHTPURPLE, PURPLE, WHITE } from "../constants/colors"
 
 
 export default function FormUser({ route, linkText, submitFunction, children }) {
@@ -39,13 +39,20 @@ const FormLogin = styled.form`
     align-items:center;
     font-family:'Raleway', sans-serif;
     input {
-        border-radius: 5px;
+        border-radius: 12px;
+        border:none;
         font-size:inherit;
         height:45px;
-        padding-left:11px;
+        padding: 0 11px;
         margin:3px 0;
         &::placeholder{
             color: ${BLACK};
+        }
+        &:focus {
+            outline-color:${LIGHTPURPLE};
+            outline-style: inset;
+            outline-offset: -4px;
+            outline-width: 3px;
         }
     }
 `
