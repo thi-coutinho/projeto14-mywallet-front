@@ -7,11 +7,13 @@ import Title from "../../components/Title"
 import { LIGHTGREEN, LIGHTRED, WHITE } from "../../constants/colors"
 import { useToken } from "../../context/TokenProvider"
 import apiEntries from "../../services/apiEntries"
-import { AddEntryButton, Balance, ButtonsConteiner, EntriesConteiner, Entry, LoadingScreen } from "./style"
+import { AddEntryButton, Balance, BalanceTop, ButtonsConteiner, EntriesConteiner, Entry, Linha, LoadingScreen } from "./style"
+import { useDate } from "../../context/DateProvider.js"
 
 export default function HomePage() {
     const token = useToken()
     const navigate = useNavigate()
+    const { month, year } = useDate()
     const [entriesList, setEntriesList] = useState(undefined)
     const [filteredProducts, setFilteredProducts] = useState(undefined)
     const [deleteEntry, setDeleteEntry] = useState(false)
@@ -38,12 +40,10 @@ export default function HomePage() {
             if (e.category) categories.add(e.category)
         })
         categories = [...categories]
-        entriesList.reduce((acc, { category, value }) => {
-            const key = category
-            const sum = acc[key] ?? 0
-            return { ...acc, [key]: sum + value }
-        }, {})
     }
+
+
+
 
     async function delEntry(e, id) {
         e.target.dataset.show = false
@@ -60,13 +60,38 @@ export default function HomePage() {
         )
     }
 
+    const subtotal = entriesList.reduce((acc, { entryType, value, date }) => {
+        const currentValue = entryType === "expense" ? value * (-1) : value
+        // console.log()
+        const itemMonth = Number(date.slice(3, 5))
+        const itemYear = Number(date.slice(6, 10))
+        if (itemYear < Number(year) || (itemMonth < Number(month) && itemYear === Number(year))) {
+            // console.log("ambos",currentValue,entryType,date, Number(date.slice(3,5)),Number(date.slice(6,10)))
+            return {
+                saldoAnterior: acc.saldoAnterior + currentValue,
+                saldoFinal: acc.saldoFinal + currentValue
+            }
+        } else if (itemMonth === Number(month) && itemYear === Number(year)) {
+            // console.log("final",currentValue,entryType,date, Number(date.slice(3,5)),Number(date.slice(6,10)))
+            return { ...acc, saldoFinal: acc.saldoFinal + currentValue }
+        } else {
+            // console.log("nenhum",currentValue,entryType,date, Number(date.slice(3,5)),Number(date.slice(6,10)))
+            return { ...acc }
+        }
 
 
+    }, { saldoAnterior: 0, saldoFinal: 0 })
+    console.log(subtotal)
     return (
         <PageTransition>
             <Title />
             <NavbarFilter entries={entriesList} setFilter={setFilteredProducts} destination={'/graph'} ionIcon={'pie-chart'} />
             <EntriesConteiner>
+                <BalanceTop positive={subtotal.saldoFinal > 0}>
+                    <p>Saldo Final</p>
+                    <p>{Intl.NumberFormat("pt-BR", { style: 'currency', currency: "BRL" }).format(subtotal.saldoFinal.toFixed(2))}</p>
+                </BalanceTop>
+                <Linha/>
                 {filteredProducts?.length === 0 && <p>Não há registros de
                     entrada ou saída</p>}
                 <ul>
@@ -102,11 +127,12 @@ export default function HomePage() {
                     )
                     }
                 </ul>
-                {balance &&
-                    <Balance positive={balance > 0}>
-                        <p>Saldo</p>
-                        <p>{Intl.NumberFormat("pt-BR", { style: 'currency', currency: "BRL" }).format(balance.toFixed(2))}</p>
-                    </Balance>}
+
+                    <Linha />
+                <Balance positive={subtotal.saldoAnterior >= 0}>
+                    <p>Saldo anterior</p>
+                    <p>{Intl.NumberFormat("pt-BR", { style: 'currency', currency: "BRL" }).format(subtotal.saldoAnterior.toFixed(2))}</p>
+                </Balance>
             </EntriesConteiner>
             <ButtonsConteiner>
                 <AddEntryButton fill={LIGHTGREEN} onClick={() => setTimeout(() => navigate("/nova-entrada",

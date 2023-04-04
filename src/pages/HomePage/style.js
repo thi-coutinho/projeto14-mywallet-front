@@ -122,3 +122,16 @@ export const Balance = styled.div`
         color: ${props => props.positive ? `${GREEN}` : `${RED}`}
     }
 `
+
+export const BalanceTop = styled(Balance)`
+    bottom:unset;
+    top: 0;
+    height:20px;
+`
+
+export const Linha = styled.div`
+    width:100%;
+    height:1px;
+    background: ${LIGHTGREY} ;
+    margin: 10px 0;
+`

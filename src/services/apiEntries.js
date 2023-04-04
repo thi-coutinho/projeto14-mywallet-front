@@ -12,7 +12,7 @@ export function config(token) {
 function compareFunction(a,b){
     const dateA = a.date.split("/").reverse().join("-")
     const dateB = b.date.split("/").reverse().join("-")
-    if (dateA>dateB) return 1
+    if (dateA<dateB) return 1
     else return -1
 }
 
