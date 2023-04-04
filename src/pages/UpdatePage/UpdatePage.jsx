@@ -9,6 +9,7 @@ import { BASE_URL } from "../../constants/url"
 import { useLoading, useToggleLoading } from "../../context/LoadingProvider"
 import { useToken } from "../../context/TokenProvider"
 import { RadioContainers, RadioInput } from "./style"
+import PopUp from "../../components/notification"
 
 export default function UpdatePage() {
     const { state: { date, description, category ,value, categories, entryType } } = useLocation()
@@ -19,6 +20,7 @@ export default function UpdatePage() {
     const toggleLoading = useToggleLoading()
     const token = useToken()
     const { entryId } = useParams()
+    const [notify,setNotify] = useState(false)
 
     function reverseDateFormat(str) {
         return str.split("-").reverse().join("/")
@@ -35,17 +37,20 @@ export default function UpdatePage() {
         axios.put(BASE_URL + `/update/${entryId}`, { value, description, date, category ,entryType }, config)
             .then(res => {
                 toggleLoading()
-                navigate("/home")
+                setNotify(true)
+                setTimeout(()=>setNotify(false),2500)
             })
             .catch(err => {
                 console.log(err)
                 toggleLoading()
             })
+
     }
 
     return (
         <PageTransition>
             <Title text={'Atualizar entrada/saída'}/>
+            <PopUp isVisible={notify}>Atualizado</PopUp>
             <FormUser route="/home" submitFunction={submitFunction}>
                 <input
                     type="number"

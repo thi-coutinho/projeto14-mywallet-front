@@ -18,6 +18,7 @@ export default function BaseScreen({ children }) {
 }
 
 const Screen = styled.div`
+    position:relative;
     background-color: ${PURPLE};
     max-width:420px;
     min-height:100vh;

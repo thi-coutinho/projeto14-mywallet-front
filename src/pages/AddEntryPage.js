@@ -9,17 +9,18 @@ import { useToken } from "../context/TokenProvider"
 import Title from "../components/Title"
 import PageTransition from "../components/PageTransition"
 import { useDate } from "../context/DateProvider"
+import PopUp from "../components/notification"
 
 export default function AddEntryPage({ type }) {
     const { month, year } = useDate()
-    const [entryInfo, setEntryInfo] = useState({ value: "", description: "", date: (new Date(year,Number(month)-1)).toISOString().slice(0, 10), category: "" })
+    const [entryInfo, setEntryInfo] = useState({ value: "", description: "", date: (new Date(year, Number(month) - 1)).toISOString().slice(0, 10), category: "" })
     const { state: { categories } } = useLocation()
     const entryUrl = type === "income" ? "/nova-entrada" : "/nova-saida"
-    const navigate = useNavigate()
     const loading = useLoading()
     const toggleLoading = useToggleLoading()
     const token = useToken()
     const input = useRef("")
+    const [notify, setNotify] = useState(false)
 
 
     useEffect(() => {
@@ -41,6 +42,8 @@ export default function AddEntryPage({ type }) {
         axios.post(BASE_URL + entryUrl, body, config)
             .then(res => {
                 toggleLoading()
+                setNotify(true)
+                setTimeout(()=>setNotify(false),1500)
                 // navigate("/home")
             })
             .catch(err => {
@@ -48,11 +51,13 @@ export default function AddEntryPage({ type }) {
                 alert(err.response.data)
                 toggleLoading()
             })
+        
     }
 
     return (
         <PageTransition>
             <Title text={type === "income" ? "Nova Entrada" : "Nova Saída"} />
+            <PopUp isVisible={notify}>Registro salvo</PopUp>
             <FormUser route="/home" submitFunction={submitFunction}>
                 <input
                     type="string"
