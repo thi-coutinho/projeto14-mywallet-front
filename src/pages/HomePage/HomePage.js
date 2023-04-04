@@ -81,13 +81,12 @@ export default function HomePage() {
 
 
     }, { saldoAnterior: 0, saldoFinal: 0 })
-    console.log(subtotal)
     return (
         <PageTransition>
             <Title />
             <NavbarFilter entries={entriesList} setFilter={setFilteredProducts} destination={'/graph'} ionIcon={'pie-chart'} />
             <EntriesConteiner>
-                <BalanceTop positive={subtotal.saldoFinal > 0}>
+                <BalanceTop positive={subtotal.saldoFinal >= 0}>
                     <p>Saldo Final</p>
                     <p>{Intl.NumberFormat("pt-BR", { style: 'currency', currency: "BRL" }).format(subtotal.saldoFinal.toFixed(2))}</p>
                 </BalanceTop>
