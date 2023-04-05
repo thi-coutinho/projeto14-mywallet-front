@@ -84,6 +84,7 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
+  min-height: -webkit-fill-available;
 }
 ol, ul {
 	list-style: none;
