@@ -76,6 +76,7 @@ const DropDownInput = styled.div`
     font-weight: 700;
     font-size: 16px;
     border-radius:5px;
+    user-select: none;
     border:none;
     box-shadow:none;
     background-color: ${LIGHTPURPLE};

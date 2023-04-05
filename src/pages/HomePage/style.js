@@ -16,13 +16,13 @@ export const EntriesConteiner = styled.div`
     flex-direction:column;
     position:relative;
     margin: 10px 25px;
-    flex:1;
+    flex:1 1 auto;
     background-color:${WHITE};
     padding: 10px 20px;
     line-height:28px;
     border-radius: 5px;
     ul {
-        flex:1;
+        flex:1 100px;
         overflow-y:auto;
     }
     p {
@@ -35,17 +35,25 @@ export const Entry = styled.li`
     animation-delay: ${props => props.delay / 30 + 's'};
     transition: all 0.5s ease-out;
     display: flex;
+    width:100%;
+    /* font-size: 0.95rem; */
     justify-content:space-between;
-
     p:nth-child(2) {
-        color: ${props => props.entryType === "income" ? `${GREEN}` : `${RED}`}
+        color: ${props => props.entryType === "income" ? `${GREEN}` : `${RED}`};
+        flex:0 1 auto;
     }
-    span {
+    span:nth-child(1) {
         color: ${LIGHTGREY};
-        margin-right: 12px
+        margin-right: 8px;
+        flex:0 1 auto;
+
+    }
+    span:nth-child(2) {
+        flex:1 1 auto;
+        margin-right: 8px;
     }
     ion-icon {
-        
+        flex:0 1 auto;
         margin:0 4px;
         color:${GREY};
         :hover {

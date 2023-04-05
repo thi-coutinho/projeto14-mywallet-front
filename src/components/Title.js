@@ -40,7 +40,7 @@ const Container = styled.div`
     margin: 0 36px 12px;
     font-family:'Raleway', Courier, monospace ;
     font-weight: 700;
-    font-size: 26px;
+    font-size: 1.5rem;
     line-height: 31px;
     color: ${WHITE};
     ion-icon {
@@ -58,7 +58,7 @@ const HelloText = styled.div`
     margin:0 25px;
     font-family: 'Raleway', Courier, monospace;
     font-weight: 700;
-    font-size: 26px;
+    font-size: 1.5rem;
     line-height: 31px;
     color: ${WHITE};
     ion-icon {   

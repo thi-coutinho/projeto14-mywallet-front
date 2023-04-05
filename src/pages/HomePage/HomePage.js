@@ -97,7 +97,7 @@ export default function HomePage() {
                     {filteredProducts?.map((e, i) => (
 
                         <Entry key={e._id} entryType={e.entryType} delay={i}>
-                            <p><span>{e.date.slice(0, 2)}</span>  {e.description}</p>
+                            <p><span>{e.date.slice(0, 2)}</span>  <span>{e.description}</span></p>
                             <p>
                                 {Intl.NumberFormat("pt-BR", {
                                     minimumIntegerDigits: 2,
