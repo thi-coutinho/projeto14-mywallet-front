@@ -1,11 +1,17 @@
+
+## :notebook_with_decorative_cover: Description
+
+ App to record home bookkeeping. Easily manage your budget, control expenses and plan your savings.
+
 <h1 align="center">My Wallet :money_with_wings:</h1>
+
 <p align="center">
  <img align="center" height="680" src="https://user-images.githubusercontent.com/48808807/229867087-d3d93174-f6e2-4a63-9ee1-537bfa26ddd0.gif" />
 </p>
  
-## :notebook_with_decorative_cover: Description
+## :wrench: [Back-End](https://github.com/thi-coutinho/projeto14-mywallet-back)
 
- App to record home bookkeeping. Easily manage your budget, control expenses and plan your savings.
+ Back-end with Node.js, Express and database in MongoDB
 
 ## :toolbox: Tech Toolbox
 
