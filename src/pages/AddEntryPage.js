@@ -26,9 +26,17 @@ export default function AddEntryPage({ type }) {
     useEffect(() => {
         input.current.focus()
     }, [])
-
     function reverseDateFormat(str) {
         return str.split("-").reverse().join("/")
+    }
+
+    function addCategorie() {
+        if (entryInfo.category && !categories.includes(entryInfo.category)){
+            categories.push(entryInfo.category)
+        }
+    }
+    function resetEntriesValues() {
+        setEntryInfo(entryInfo => ({...entryInfo, value: "", description: "", category: "" }))
     }
 
     function submitFunction() {
@@ -43,6 +51,8 @@ export default function AddEntryPage({ type }) {
             .then(res => {
                 toggleLoading()
                 setNotify(true)
+                addCategorie()
+                resetEntriesValues()
                 setTimeout(()=>setNotify(false),1500)
                 // navigate("/home")
             })
@@ -85,8 +95,8 @@ export default function AddEntryPage({ type }) {
                     disabled={loading}
                 />
                 {             
-                categories?.length && <datalist id="categories">
-                    {categories?.map((e, i) => <option key={i} value={e}></option>)}
+                <datalist id="categories">
+                    {categories?.length && categories.map((e, i) => <option key={i} value={e}></option>)}
                 </datalist>
                 }
                 <input
