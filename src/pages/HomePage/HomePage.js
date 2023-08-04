@@ -18,7 +18,7 @@ export default function HomePage() {
     const [filteredProducts, setFilteredProducts] = useState(undefined)
     const [deleteEntry, setDeleteEntry] = useState(false)
 
-    let balance = undefined;
+    // let balance = undefined;
     let categories = new Set()
 
     useEffect(() => {
@@ -30,13 +30,13 @@ export default function HomePage() {
     }, [token, deleteEntry])
 
     if (entriesList?.length > 0) {
-        balance = 0
+        // balance = 0
         entriesList.filter((d) => d.entryType === "income").forEach(e => {
-            balance += Number(e.value)
+            // balance += Number(e.value)
             if (e.category) categories.add(e.category)
         })
         entriesList.filter((d) => d.entryType === "expense").forEach(e => {
-            balance -= Number(e.value)
+            // balance -= Number(e.value)
             if (e.category) categories.add(e.category)
         })
         categories = [...categories]

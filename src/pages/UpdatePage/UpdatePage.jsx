@@ -55,7 +55,7 @@ export default function UpdatePage() {
                 <input
                     type="number"
                     placeholder="Valor"
-                    value={entryInfo.value}
+                    value={+Number(entryInfo.value)}
                     onChange={(e) => setEntryInfo({ ...entryInfo, value: Number(e.target.value) })}
                     disabled={loading}
                     required

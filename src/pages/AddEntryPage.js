@@ -84,9 +84,11 @@ export default function AddEntryPage({ type }) {
                     onChange={(e) => { setEntryInfo({ ...entryInfo, category: e.target.value }) }}
                     disabled={loading}
                 />
-                <datalist id="categories">
-                    {categories.map((e, i) => <option key={i} value={e}></option>)}
+                {             
+                categories?.length && <datalist id="categories">
+                    {categories?.map((e, i) => <option key={i} value={e}></option>)}
                 </datalist>
+                }
                 <input
                     type="date"
                     value={entryInfo.date}
