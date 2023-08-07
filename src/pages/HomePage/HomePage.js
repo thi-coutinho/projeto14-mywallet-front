@@ -18,25 +18,20 @@ export default function HomePage() {
     const [filteredProducts, setFilteredProducts] = useState(undefined)
     const [deleteEntry, setDeleteEntry] = useState(false)
 
-    // let balance = undefined;
     let categories = new Set()
 
     useEffect(() => {
         apiEntries.getEntries(token.token)
             .then(res => {
-                // console.log(res[0].date.slice(3,5))
                 setEntriesList(res)
             })
     }, [token, deleteEntry])
 
     if (entriesList?.length > 0) {
-        // balance = 0
         entriesList.filter((d) => d.entryType === "income").forEach(e => {
-            // balance += Number(e.value)
             if (e.category) categories.add(e.category)
         })
         entriesList.filter((d) => d.entryType === "expense").forEach(e => {
-            // balance -= Number(e.value)
             if (e.category) categories.add(e.category)
         })
         categories = [...categories]
@@ -62,20 +57,16 @@ export default function HomePage() {
 
     const subtotal = entriesList.reduce((acc, { entryType, value, date }) => {
         const currentValue = entryType === "expense" ? value * (-1) : value
-        // console.log()
         const itemMonth = Number(date.slice(3, 5))
         const itemYear = Number(date.slice(6, 10))
         if (itemYear < Number(year) || (itemMonth < Number(month) && itemYear === Number(year))) {
-            // console.log("ambos",currentValue,entryType,date, Number(date.slice(3,5)),Number(date.slice(6,10)))
             return {
                 saldoAnterior: acc.saldoAnterior + currentValue,
                 saldoFinal: acc.saldoFinal + currentValue
             }
         } else if (itemMonth === Number(month) && itemYear === Number(year)) {
-            // console.log("final",currentValue,entryType,date, Number(date.slice(3,5)),Number(date.slice(6,10)))
             return { ...acc, saldoFinal: acc.saldoFinal + currentValue }
         } else {
-            // console.log("nenhum",currentValue,entryType,date, Number(date.slice(3,5)),Number(date.slice(6,10)))
             return { ...acc }
         }
 

@@ -1,6 +1,6 @@
 import axios from "axios"
 import { useState } from "react"
-import { useLocation, useNavigate, useParams } from "react-router-dom"
+import { useLocation, useParams } from "react-router-dom"
 import Button from "../../components/Button"
 import FormUser from "../../components/FormUser"
 import PageTransition from "../../components/PageTransition"
@@ -15,7 +15,6 @@ export default function UpdatePage() {
     const { state: { date, description, category ,value, categories, entryType } } = useLocation()
     const dateFormated = date.split("/").reverse().join("-")
     const [entryInfo, setEntryInfo] = useState({ value, description, date, category , dateFormated, entryType })
-    const navigate = useNavigate()
     const loading = useLoading()
     const toggleLoading = useToggleLoading()
     const token = useToken()

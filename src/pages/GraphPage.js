@@ -148,6 +148,5 @@ const Conteiner = styled.div`
     margin:auto 25px;
     padding:10px 10px 0;
     flex: 1 100px auto;
-    /* transition: max-heiht 600ms ease-in-out; */
 
 `

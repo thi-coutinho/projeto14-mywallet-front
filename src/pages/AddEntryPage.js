@@ -1,6 +1,6 @@
 import axios from "axios"
 import { useEffect, useRef, useState } from "react"
-import { useLocation, useNavigate } from "react-router-dom"
+import { useLocation } from "react-router-dom"
 import Button from "../components/Button"
 import FormUser from "../components/FormUser"
 import { BASE_URL } from "../constants/url"
@@ -54,7 +54,6 @@ export default function AddEntryPage({ type }) {
                 addCategorie()
                 resetEntriesValues()
                 setTimeout(()=>setNotify(false),1500)
-                // navigate("/home")
             })
             .catch(err => {
                 console.log(err)

@@ -36,7 +36,6 @@ export const Entry = styled.li`
     transition: all 0.5s ease-out;
     display: flex;
     width:100%;
-    /* font-size: 0.95rem; */
     justify-content:space-between;
     p:nth-child(2) {
         color: ${props => props.entryType === "income" ? `${GREEN}` : `${RED}`};
