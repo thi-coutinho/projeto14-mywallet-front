@@ -40,7 +40,6 @@ const Conteiner = styled(motion.div)`
     line-height:23px;
     ion-icon {
         z-index:4;
-        /* position:absolute; */
         color:white;
         font-size:60px;
     }

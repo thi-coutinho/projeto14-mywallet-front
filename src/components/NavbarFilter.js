@@ -8,10 +8,7 @@ export default function NavbarFilter({ entries, setFilter, ionIcon, destination 
     const navigate = useNavigate()
     const { month, year } = useDate()
     const setDate = useSetDate()
-    // const CurrentMonth = (new Date()).toISOString().slice(5, 7)
-    // const [month, setMonth] = useState(CurrentMonth)
     const CurrentYear = (new Date()).toISOString().slice(0, 4)
-    // const [year, setYear] = useState(CurrentYear)
     const inputMonthFilter = useRef("")
     const [showDropDown, setShowDropDown] = useState(false)
 
@@ -91,7 +88,6 @@ const DropDownInput = styled.div`
         width:fit-content;
         height:93px;
         border-radius: 5px;
-        /* margin-right: 5px; */
         padding: 0 10px; 
         overflow-y:scroll;
         scroll-behavior: smooth;
@@ -100,7 +96,6 @@ const DropDownInput = styled.div`
         ::-webkit-scrollbar {
             width:5px;
         }
-        /* Handle */
         ::-webkit-scrollbar-thumb {
             background: white; 
             border-radius: 10px;
@@ -153,7 +148,6 @@ const Conteiner = styled.div`
         width:0;
     }
     p {       
-        /* margin-right:5px; */
         padding: 0 10px; 
         color:white;
         font-family: 'Raleway';

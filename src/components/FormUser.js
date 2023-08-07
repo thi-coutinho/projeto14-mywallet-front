@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import { Link } from "react-router-dom"
-import { BLACK, LIGHTPURPLE, PURPLE, WHITE } from "../constants/colors"
+import { BLACK, LIGHTPURPLE, WHITE } from "../constants/colors"
 
 
 export default function FormUser({ route, linkText, submitFunction, children }) {
